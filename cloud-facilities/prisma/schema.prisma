@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Destinations {
+  city                   String  @unique
+  country                String
+  region                 String
+  destination_highlights String[]
+  destination_image      Json[]
+  Trips                  Trips[]
+}
+
+model Trips {
+  trip_id           String       @id @default(uuid())
+  t        TripType @relation(fields:[trip_type], references:[activity])
+  trip_type         Activity
+  trip_date         DateTime
+  trip_availability Int
+  trip_itinerary    String[]
+  trip_inclusions   String
+  d      Destinations @relation(fields: [Destination], references: [city])
+  Destination    String
+  Accomodation      Accommodations[]
+}
+
+model TripType{
+  activity Activity @unique 
+  Trips Trips[]
+}
+
+enum Activity {
+  SKYDIVE
+  SNOWSLOPES
+  SCUBADIVING
+}
+
+model Accommodations {
+  trip_accommo     String     
+  accommo_highlights  String[]       
+  accommo_pics  Json[]
+  t Trips @relation(fields:[trip_id], references: [trip_id])
+  trip_id String @unique
+}
