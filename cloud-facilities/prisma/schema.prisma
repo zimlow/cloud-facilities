@@ -21,15 +21,16 @@ model Destinations {
 
 model Trips {
   trip_id           String       @id @default(uuid())
-  t        TripType @relation(fields:[trip_type], references:[activity])
-  trip_type         Activity
+  trip_type         TripType @relation(fields:[activity], references:[activity])
+  activity          Activity
   trip_date         DateTime
   trip_availability Int
   trip_itinerary    String[]
   trip_inclusions   String
-  d      Destinations @relation(fields: [Destination], references: [city])
-  Destination    String
-  Accomodation      Accommodations[]
+  destination       Destinations @relation(fields: [city], references: [city])
+  city         String
+  accommodation     Accommodation?
+  Bookings          Bookings[]
 }
 
 model TripType{
@@ -43,10 +44,45 @@ enum Activity {
   SCUBADIVING
 }
 
-model Accommodations {
+model Accommodation {
   trip_accommo     String     
   accommo_highlights  String[]       
   accommo_pics  Json[]
-  t Trips @relation(fields:[trip_id], references: [trip_id])
+  trip Trips @relation(fields:[trip_id], references: [trip_id])
+  trip_id String @unique 
+}
+
+model Users{
+  user_id String @id @default(uuid())
+  user_lastName String @unique
+  user_firstName String @unique
+  user_email String @unique
+  user_password String
+  user_dob DateTime
+  user_address String
+  user_passport_no String @unique
+  createdAt DateTime @default(now()) @ignore
+  user_bookings Bookings[]
+  user_contacts UserContacts[]
+}
+
+model Bookings {
+  booking_reference String @unique 
+  trip Trips @relation(fields:[trip_id], references: [trip_id])
   trip_id String @unique
+  user Users @relation(fields:[user_id], references: [user_id])
+  user_id String @unique
+}
+
+model UserContacts {
+  user Users @relation(fields:[user_id], references: [user_id])
+  user_id String @unique
+  contact_value String
+  contact_type Contacts
+}
+
+enum Contacts {
+  MOBILE
+  HOME
+  OFFICE_NO
 }
