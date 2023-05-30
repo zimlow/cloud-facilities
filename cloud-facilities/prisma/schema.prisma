@@ -8,7 +8,9 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
+
 
 model Destinations {
   city                   String  @unique
@@ -30,7 +32,7 @@ model Trips {
   destination       Destinations @relation(fields: [city], references: [city])
   city         String
   accommodation     Accommodation?
-  Bookings          Bookings[]
+  bookings          Bookings[] //for user booking using trip id
 }
 
 model TripType{
@@ -54,6 +56,7 @@ model Accommodation {
 
 model Users{
   user_id String @id @default(uuid())
+  username String @unique
   user_lastName String @unique
   user_firstName String @unique
   user_email String @unique
@@ -62,7 +65,7 @@ model Users{
   user_address String
   user_passport_no String @unique
   createdAt DateTime @default(now()) @ignore
-  user_bookings Bookings[]
+  user_bookings Bookings[] // for user booking using user_id
   user_contacts UserContacts[]
 }
 
