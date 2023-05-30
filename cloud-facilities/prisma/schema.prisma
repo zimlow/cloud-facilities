@@ -25,7 +25,8 @@ model Trips {
   trip_id           String       @id @default(uuid())
   trip_type         TripType @relation(fields:[activity], references:[activity])
   activity          Activity
-  trip_date         DateTime
+  trip_start_date         String
+  trip_end_date         String
   trip_availability Int
   trip_itinerary    String[]
   trip_inclusions   String
@@ -61,7 +62,7 @@ model Users{
   user_firstName String @unique
   user_email String @unique
   user_password String
-  user_dob DateTime
+  user_dob String
   user_address String
   user_passport_no String @unique
   createdAt DateTime @default(now()) @ignore
@@ -89,3 +90,4 @@ enum Contacts {
   HOME
   OFFICE_NO
 }
+
