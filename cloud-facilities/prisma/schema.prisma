@@ -30,14 +30,15 @@ enum Regions {
 
 model Trips {
   trip_id           String       @id @default(uuid())
-  trip_type         TripType @relation(fields:[activity], references:[activity])
+  trip_type         TripType @relation(fields:[activity], references:[activity], onDelete: Cascade, onUpdate: Cascade)
   activity          Activity
   trip_start_date         String
   trip_end_date         String
   trip_availability Int
   trip_itinerary    String[]
   trip_inclusions   String[]
-  destination       Destinations @relation(fields: [city], references: [city])
+  trip_price        Float
+  destination       Destinations @relation(fields: [city], references: [city], onDelete: Cascade, onUpdate: Cascade)
   city         String
   accommodation     Accommodation? 
   bookings          Bookings[] //for user booking using trip id
