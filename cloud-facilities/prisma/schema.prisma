@@ -15,10 +15,17 @@ datasource db {
 model Destinations {
   city                   String  @unique
   country                String
-  region                 String
+  region                  Regions
   destination_highlights String[]
   destination_image      Json[]
   Trips                  Trips[]
+}
+
+enum Regions {
+  ASIA
+  EUROPE
+  AMERICAS
+  OCEANIA
 }
 
 model Trips {
@@ -29,10 +36,10 @@ model Trips {
   trip_end_date         String
   trip_availability Int
   trip_itinerary    String[]
-  trip_inclusions   String
+  trip_inclusions   String[]
   destination       Destinations @relation(fields: [city], references: [city])
   city         String
-  accommodation     Accommodation?
+  accommodation     Accommodation? 
   bookings          Bookings[] //for user booking using trip id
 }
 
@@ -51,7 +58,7 @@ model Accommodation {
   trip_accommo     String     
   accommo_highlights  String[]       
   accommo_pics  Json[]
-  trip Trips @relation(fields:[trip_id], references: [trip_id])
+  trip Trips @relation(fields:[trip_id], references: [trip_id], onDelete: Cascade, onUpdate: Cascade)
   trip_id String @unique 
 }
 
