@@ -10,10 +10,10 @@ const TripCard = (props) => {
           <img src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">{props.city}</div>
+            <p className="text-gray-700 text-base">{props.trip_title}</p>
             <div>
               {props.trip_start_date} TO {props.trip_end_date}
             </div>
-            <p className="text-gray-700 text-base">Skydive San Diego gogo</p>
             <p className="text-gray-700 text-base">Available Slots: {props.trip_availability}</p>
           </div>
           <div className="px-6 pt-4 pb-2">

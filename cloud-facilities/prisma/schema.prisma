@@ -38,6 +38,7 @@ model Trips {
   trip_itinerary    String[]
   trip_inclusions   String[]
   trip_price        Float
+  trip_title        String
   destination       Destinations @relation(fields: [city], references: [city], onDelete: Cascade, onUpdate: Cascade)
   city         String
   accommodation     Accommodation? 
@@ -59,31 +60,34 @@ model Accommodation {
   trip_accommo     String     
   accommo_highlights  String[]       
   accommo_pics  Json[]
-  trip Trips @relation(fields:[trip_id], references: [trip_id], onDelete: Cascade, onUpdate: Cascade)
-  trip_id String @unique 
+  trip Trips? @relation(fields:[trip_id], references: [trip_id], onDelete: Cascade, onUpdate: Cascade)
+  trip_id String @unique
 }
 
 model Users{
   user_id String @id @default(uuid())
-  username String @unique
-  user_lastName String @unique
-  user_firstName String @unique
+  user_lastName String
+  user_firstName String 
   user_email String @unique
-  user_password String
+  user_password String?
   user_dob String
   user_address String
+  user_country String
+  user_postal_code Int
   user_passport_no String @unique
   createdAt DateTime @default(now()) @ignore
   user_bookings Bookings[] // for user booking using user_id
   user_contacts UserContacts[]
+  user_payment UserPayment[]
 }
 
 model Bookings {
   booking_reference String @unique 
   trip Trips @relation(fields:[trip_id], references: [trip_id])
   trip_id String @unique
-  user Users @relation(fields:[user_id], references: [user_id])
+  user Users? @relation(fields:[user_id], references: [user_id])
   user_id String @unique
+  user_lastName String
 }
 
 model UserContacts {
@@ -99,3 +103,12 @@ enum Contacts {
   OFFICE_NO
 }
 
+model UserPayment {
+  user Users @relation(fields:[user_id], references: [user_id])
+  user_id String @unique
+  name_on_card String
+  card_no BigInt
+  expiry_month Int
+  expiry_year Int
+  cvv Int
+}

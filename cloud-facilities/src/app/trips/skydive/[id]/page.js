@@ -1,6 +1,7 @@
-// import { prisma } from "@/db";
+import { prisma } from "@/db";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const TripPage = async ({ params }) => {
   const getAccommo = await prisma.accommodation.findUnique({
@@ -19,13 +20,17 @@ const TripPage = async ({ params }) => {
     },
   });
 
+  console.log(getTrip);
+
   return (
     <div className="items-center content-center justify-items-center justify-center p-0 m-0 text-center">
       <div>{getTrip.city}</div>
       <div>
-        {getTrip.trip_start_date} TO {getTrip.trip_start_date}
+        {getTrip.trip_start_date} TO {getTrip.trip_end_date}
       </div>
-      <div className="bg-yellow-300 w-20">Book Now</div>
+      <Link href={`/booking/${getTrip.trip_id}`} className="bg-yellow-300 w-20">
+        Book Now
+      </Link>
       <br />
       <div>{getTrip.city} Highlights</div>
       <div className="flex">
