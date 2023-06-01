@@ -1,35 +1,7 @@
+import CancelButton from "@/app/components/CancelButton";
+import { redirect } from "next/navigation";
+import { prisma } from "@/db";
 import Link from "next/link";
-
-async function createBooking(data, { params }) {
-  "use server";
-  console.log("hi");
-  // await prisma.users.create({
-  //   data: {
-  //     user_lastName: data.lname,
-  //     user_firstName: data.fname,
-  //     user_email: data.email,
-  //     user_dob: data.dob,
-  //     user_address: data.address,
-  //     user_country: data.country,
-  //     user_postal_code: data.postal,
-  //     user_passport_no: data.passport,
-  //     user_bookings: {
-  //       create: {
-  //   }
-  // })
-
-  // await prisma.bookings.create({
-  //   data: {
-  //     booking_reference: Math.random().toString(36).substring(2, 17),
-  //     trip: {
-  //       connect: { trip_id: params.slug },
-  //     },
-  //     user: {
-  //       create: {},
-  //     },
-  //   },
-  // });
-}
 
 const BookingPage = async ({ params }) => {
   const getTrip = await prisma.trips.findUnique({
@@ -37,6 +9,35 @@ const BookingPage = async ({ params }) => {
       trip_id: params.slug,
     },
   });
+
+  async function createBooking(data) {
+    "use server";
+    await prisma.bookings.create({
+      data: {
+        booking_reference: Math.random().toString(36).substring(2, 17),
+        trip: {
+          connect: { trip_id: getTrip.trip_id },
+        },
+        lastName: data.get("lname").valueOf(),
+        firstName: data.get("fname").valueOf(),
+        email: data.get("email").valueOf(),
+        passport_no: data.get("passport").valueOf(),
+        dob: data.get("dob").valueOf(),
+        address: data.get("address").valueOf(),
+        address_country: data.get("country").valueOf(),
+        address_postal: Number(data.get("postal").valueOf()),
+        home_no: Number(data.get("home").valueOf()),
+        mobile_no: Number(data.get("mobile").valueOf()),
+        name_on_card: data.get("cardname").valueOf(),
+        card_no: Number(data.get("cardnumber").valueOf()),
+        expiry_month: Number(data.get("expmonth").valueOf()),
+        expiry_year: Number(data.get("expyear").valueOf()),
+        CVV: Number(data.get("cvv").valueOf()),
+      },
+    });
+    console.log("saved");
+    redirect("/confirmation");
+  }
 
   return (
     <>
@@ -53,21 +54,41 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="passport"
           name="passport"
+          defaultValue="K12345678B"
         />
         <br />
         <label htmlFor="fname">First name:</label>
-        <input className="border border-slate-300 rounded-md" type="text" id="fname" name="fname" />
+        <input
+          className="border border-slate-300 rounded-md"
+          type="text"
+          id="fname"
+          name="fname"
+          defaultValue="ah kow"
+        />
         <label htmlFor="lname">Last name:</label>
-        <input className="border border-slate-300 rounded-md" type="text" id="lname" name="lname" />
+        <input
+          className="border border-slate-300 rounded-md"
+          type="text"
+          id="lname"
+          name="lname"
+          defaultValue="tan"
+        />
         <label htmlFor="email">Email:</label>
         <input
           className="border border-slate-300 rounded-md"
           type="email"
           id="email"
           name="email"
+          defaultValue="tanahkow@gmail.com"
         />
         <label htmlFor="dob">Date of Birth:</label>
-        <input className="border border-slate-300 rounded-md" type="text" id="dob" name="dob" />
+        <input
+          className="border border-slate-300 rounded-md"
+          type="text"
+          id="dob"
+          name="dob"
+          defaultValue="19 sep 2023"
+        />
         <br />
         <label htmlFor="address">Address:</label>
         <input
@@ -75,6 +96,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="address"
           name="address"
+          defaultValue="123 address road #01-01"
         />
         <label htmlFor="country">Country:</label>
         <input
@@ -82,6 +104,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="country"
           name="country"
+          defaultValue="Singapore"
         />
         <label htmlFor="postal">Postal Code:</label>
         <input
@@ -89,6 +112,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="postal"
           name="postal"
+          defaultValue="666000"
         />
         <br />
         <br />
@@ -99,6 +123,7 @@ const BookingPage = async ({ params }) => {
           type="tel"
           id="home"
           name="home"
+          defaultValue="1234"
           //regex pattern
         />
         <label htmlFor="mobile">Mobile Number:</label>
@@ -107,6 +132,7 @@ const BookingPage = async ({ params }) => {
           type="tel"
           id="mobile"
           name="mobile"
+          defaultValue="5678"
           //regex pattern
         />
         <br />
@@ -118,6 +144,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="cardname"
           name="cardname"
+          defaultValue="tan ah kow"
         />
         <label htmlFor="cardnumber">Card Number:</label>
         <input
@@ -125,28 +152,38 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="cardnumber"
           name="cardnumber"
+          defaultValue="1234567890123456"
         />
-        <label htmlFor="expiry">Expiry:</label>
+        <label htmlFor="expmonth">Expiry:</label>
         <input
           className="border border-slate-300 rounded-md"
           type="text"
           id="expmonth"
           name="expmonth"
+          defaultValue="09"
         />
         /
+        <label htmlFor="expyear" />
         <input
           className="border border-slate-300 rounded-md"
           type="text"
           id="expyear"
           name="expyear"
+          defaultValue="23"
         />
         <label htmlFor="cvv">CVV:</label>
-        <input className="border border-slate-300 rounded-md" type="text" id="cvv" name="cvv" />
+        <input
+          className="border border-slate-300 rounded-md"
+          type="text"
+          id="cvv"
+          name="cvv"
+          defaultValue="911"
+        />
         <br />
         <button type="submit">Submit</button>
         <br />
+        <CancelButton />
       </form>
-      <CancelButton />
     </>
   );
 };

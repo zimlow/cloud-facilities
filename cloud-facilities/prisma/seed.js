@@ -2,10 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.trips.deleteMany();
-  await prisma.accommodation.deleteMany();
   await prisma.tripType.deleteMany();
+  await prisma.accommodation.deleteMany();
   await prisma.destinations.deleteMany();
+  await prisma.trips.deleteMany();
 
   await prisma.tripType.createMany({
     data: [{ activity: "SKYDIVE" }, { activity: "SCUBADIVING" }, { activity: "SNOWSLOPES" }],

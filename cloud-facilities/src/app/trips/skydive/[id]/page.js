@@ -1,6 +1,5 @@
 import { prisma } from "@/db";
 
-import Image from "next/image";
 import Link from "next/link";
 
 const TripPage = async ({ params }) => {

@@ -30,8 +30,8 @@ enum Regions {
 
 model Trips {
   trip_id           String       @id @default(uuid())
-  trip_type         TripType @relation(fields:[activity], references:[activity], onDelete: Cascade, onUpdate: Cascade)
-  activity          Activity
+  trip_type         TripType? @relation(fields:[activity], references:[activity], onDelete:SetNull, onUpdate: Cascade )
+  activity          Activity?
   trip_start_date         String
   trip_end_date         String
   trip_availability Int
@@ -39,14 +39,14 @@ model Trips {
   trip_inclusions   String[]
   trip_price        Float
   trip_title        String
-  destination       Destinations @relation(fields: [city], references: [city], onDelete: Cascade, onUpdate: Cascade)
-  city         String
+  destination       Destinations? @relation(fields: [city], references: [city], onDelete:SetNull, onUpdate: Cascade )
+  city         String?
   accommodation     Accommodation? 
   bookings          Bookings[] //for user booking using trip id
 }
 
 model TripType{
-  activity Activity @unique 
+  activity Activity @unique @id
   Trips Trips[]
 }
 
@@ -57,10 +57,10 @@ enum Activity {
 }
 
 model Accommodation {
-  trip_accommo     String     
+  trip_accommo     String    
   accommo_highlights  String[]       
   accommo_pics  Json[]
-  trip Trips? @relation(fields:[trip_id], references: [trip_id], onDelete: Cascade, onUpdate: Cascade)
+  trip Trips? @relation(fields:[trip_id], references: [trip_id])
   trip_id String @unique
 }
 
@@ -82,12 +82,26 @@ model Users{
 }
 
 model Bookings {
-  booking_reference String @unique 
+  booking_reference String @unique @id
   trip Trips @relation(fields:[trip_id], references: [trip_id])
   trip_id String @unique
   user Users? @relation(fields:[user_id], references: [user_id])
-  user_id String @unique
-  user_lastName String
+  user_id String? @unique
+  lastName String
+  firstName String
+  dob String
+  passport_no String
+  email String
+  address String
+  address_country String
+  address_postal Int
+  home_no Int
+  mobile_no Int
+  name_on_card String
+  card_no BigInt
+  expiry_month Int
+  expiry_year Int
+  CVV Int
 }
 
 model UserContacts {
