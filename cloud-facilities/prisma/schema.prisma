@@ -84,9 +84,9 @@ model Users{
 model Bookings {
   booking_reference String @unique @id
   trip Trips @relation(fields:[trip_id], references: [trip_id])
-  trip_id String @unique
+  trip_id String
   user Users? @relation(fields:[user_id], references: [user_id])
-  user_id String? @unique
+  user_id String?
   lastName String
   firstName String
   dob String
@@ -98,7 +98,7 @@ model Bookings {
   home_no Int
   mobile_no Int
   name_on_card String
-  card_no BigInt
+  card_no String
   expiry_month Int
   expiry_year Int
   CVV Int
@@ -121,7 +121,7 @@ model UserPayment {
   user Users @relation(fields:[user_id], references: [user_id])
   user_id String @unique
   name_on_card String
-  card_no BigInt
+  card_no String
   expiry_month Int
   expiry_year Int
   cvv Int
