@@ -12,6 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/supabase-adapter": "^0.2.1",
     "@prisma/client": "^4.15.0",
     "@supabase/supabase-js": "^2.24.0",
     "autoprefixer": "10.4.14",
