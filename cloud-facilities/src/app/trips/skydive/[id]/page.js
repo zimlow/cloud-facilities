@@ -19,7 +19,7 @@ const TripPage = async ({ params }) => {
     },
   });
 
-  console.log(getTrip);
+  const tripSlots = getTrip.trip_availability <= 0 ? null : getTrip.trip_availability;
 
   return (
     <div className="items-center content-center justify-items-center justify-center p-0 m-0 text-center">
@@ -27,9 +27,13 @@ const TripPage = async ({ params }) => {
       <div>
         {getTrip.trip_start_date} TO {getTrip.trip_end_date}
       </div>
-      <Link href={`/booking/${getTrip.trip_id}`} className="bg-yellow-300 w-20">
-        Book Now
-      </Link>
+      {tripSlots ? (
+        <Link href={`/booking/${getTrip.trip_id}`} className="bg-yellow-300 w-20">
+          Book Now
+        </Link>
+      ) : (
+        <div className="bg-red-300 w-20">Sold Out</div>
+      )}
       <br />
       <div>{getTrip.city} Highlights</div>
       <div className="flex">

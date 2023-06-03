@@ -66,7 +66,7 @@ model Accommodation {
 
 model Bookings {
   booking_reference String @unique @id
-  trip Trips @relation(fields:[trip_id], references: [trip_id])
+  trip Trips @relation(fields:[trip_id], references: [trip_id], onDelete: Cascade, onUpdate: Cascade)
   trip_id String
   user RegisteredUsers? @relation(fields:[user_id], references: [user_id])
   user_id String?
