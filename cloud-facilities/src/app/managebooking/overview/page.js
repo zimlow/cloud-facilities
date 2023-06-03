@@ -6,7 +6,6 @@ const page = () => {
   const [bookings, setBookings] = useState([{}]);
   const searchParams = useSearchParams();
   const search = searchParams.get("booking");
-  console.log("SEARCH IS:", search);
 
   async function getBookings() {
     const res = await fetch("/api/mybooking", {

@@ -64,28 +64,11 @@ model Accommodation {
   trip_id String @unique
 }
 
-model Users{
-  user_id String @id @default(uuid())
-  user_lastName String
-  user_firstName String 
-  user_email String @unique
-  user_password String?
-  user_dob String
-  user_address String
-  user_country String
-  user_postal_code Int
-  user_passport_no String @unique
-  createdAt DateTime @default(now()) @ignore
-  user_bookings Bookings[] // for user booking using user_id
-  user_contacts UserContacts[]
-  user_payment UserPayment[]
-}
-
 model Bookings {
   booking_reference String @unique @id
   trip Trips @relation(fields:[trip_id], references: [trip_id])
   trip_id String
-  user Users? @relation(fields:[user_id], references: [user_id])
+  user RegisteredUsers? @relation(fields:[user_id], references: [user_id])
   user_id String?
   lastName String
   firstName String
@@ -97,17 +80,28 @@ model Bookings {
   address_postal Int
   home_no Int
   mobile_no Int
-  name_on_card String
-  card_no String
-  expiry_month Int
-  expiry_year Int
-  CVV Int
+}
+
+model RegisteredUsers{
+  user_id String @id @default(uuid())
+  user_lastName String
+  user_firstName String 
+  user_email String @unique
+  user_hash String
+  user_dob String
+  user_address String
+  user_country String
+  user_postal_code String
+  user_passport_no String @unique
+  createdAt DateTime @default(now()) @ignore
+  user_bookings Bookings[]
+  user_contacts UserContacts[]
 }
 
 model UserContacts {
-  user Users @relation(fields:[user_id], references: [user_id])
-  user_id String @unique
-  contact_value String
+  user RegisteredUsers @relation(fields:[user_id], references: [user_id], onDelete: Cascade, onUpdate: Cascade)
+  user_id String
+  contact_value String @unique
   contact_type Contacts
 }
 
@@ -115,14 +109,4 @@ enum Contacts {
   MOBILE
   HOME
   OFFICE_NO
-}
-
-model UserPayment {
-  user Users @relation(fields:[user_id], references: [user_id])
-  user_id String @unique
-  name_on_card String
-  card_no String
-  expiry_month Int
-  expiry_year Int
-  cvv Int
 }
