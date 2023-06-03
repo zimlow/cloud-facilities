@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const page = () => {
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState([{}]);
   const searchParams = useSearchParams();
   const search = searchParams.get("booking");
   console.log("SEARCH IS:", search);
@@ -17,6 +17,7 @@ const page = () => {
       body: JSON.stringify({ booking_reference: search }),
     });
     const json = await res.json();
+    console.log("JSON IS:", json);
     setBookings(json);
   }
 
@@ -24,7 +25,15 @@ const page = () => {
     getBookings();
   }, []);
 
-  return <div>{bookings.lastName}</div>;
+  return (
+    <div className="text-center">
+      <div>Manage Your Booking for {bookings.trip?.trip_title}</div>
+      <div>Booking Reference: {bookings.booking_reference}</div>
+      {/* <br />
+      <div>display rest of booking details below</div>
+      <div>include update button to update account ID</div> */}
+    </div>
+  );
 };
 
 export default page;
