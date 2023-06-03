@@ -29,7 +29,7 @@ const BookingPage = async ({ params }) => {
         home_no: Number(data.get("home").valueOf()),
         mobile_no: Number(data.get("mobile").valueOf()),
         name_on_card: data.get("cardname").valueOf(),
-        card_no: Number(data.get("cardnumber").valueOf()),
+        card_no: data.get("cardnumber").valueOf(),
         expiry_month: Number(data.get("expmonth").valueOf()),
         expiry_year: Number(data.get("expyear").valueOf()),
         CVV: Number(data.get("cvv").valueOf()),

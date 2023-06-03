@@ -16,6 +16,7 @@ async function getBooking(data) {
       trip: true,
     },
   });
+  console.log(res);
   redirect(`/managebooking/overview?booking=${res.booking_reference}`);
 }
 
