@@ -1,5 +1,5 @@
 import CancelButton from "@/app/components/CancelButton";
-import { redirect } from "next/navigation";
+import { redirect, refresh, useRouter } from "next/navigation";
 import { prisma } from "@/db";
 import Link from "next/link";
 
@@ -28,14 +28,19 @@ const BookingPage = async ({ params }) => {
         address_postal: Number(data.get("postal").valueOf()),
         home_no: Number(data.get("home").valueOf()),
         mobile_no: Number(data.get("mobile").valueOf()),
-        name_on_card: data.get("cardname").valueOf(),
-        card_no: data.get("cardnumber").valueOf(),
-        expiry_month: Number(data.get("expmonth").valueOf()),
-        expiry_year: Number(data.get("expyear").valueOf()),
-        CVV: Number(data.get("cvv").valueOf()),
       },
     });
-    console.log("saved");
+
+    await prisma.trips.update({
+      where: {
+        trip_id: getTrip.trip_id,
+      },
+      data: {
+        trip_availability: {
+          increment: -1,
+        },
+      },
+    });
     redirect("/confirmation");
   }
 

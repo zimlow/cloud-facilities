@@ -1,7 +1,9 @@
+import { SupabaseAdapter } from "@next-auth/supabase-adapter";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { signIn } from "next-auth/react";
 
-export default NextAuth({
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -9,24 +11,30 @@ export default NextAuth({
         email: { label: "Email", type: "text", placeholder: "email" },
         password: { label: "Password", type: "password" },
       },
+
       async authorize(credentials) {
-        const authResponse = await fetch("/users/login", {
+        const authResponse = await fetch("http:localhost:3000/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(credentials),
-          //body: JSON.stringify({ email: credentials.email, password: credentials.password }),
+          body: JSON.stringify({ email: credentials?.email, password: credentials?.password }),
         });
-
-        if (!authResponse.ok) {
-          return null;
-        }
 
         const user = await authResponse.json();
 
-        return user;
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
       },
     }),
   ],
+
+  pages: {
+    signIn: "/login",
+  },
 });
+
+export { handler as GET, handler as POST };
