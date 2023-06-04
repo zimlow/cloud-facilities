@@ -17,20 +17,22 @@ export async function POST(req, res) {
       user_postal_code: body.postal_code,
       user_passport_no: body.passport_no,
       user_contacts: {
-        create: [
-          {
-            contact_type: "MOBILE",
-            contact_value: body.mobile,
-          },
-          {
-            contact_type: "HOME",
-            contact_value: body.home,
-          },
-          {
-            contact_type: "OFFICE_NO",
-            contact_value: body.office,
-          },
-        ],
+        createMany: {
+          data: [
+            {
+              contact_type: "MOBILE",
+              contact_value: body.mobile,
+            },
+            {
+              contact_type: "HOME",
+              contact_value: body.home,
+            },
+            {
+              contact_type: "OFFICE_NO",
+              contact_value: body.office,
+            },
+          ],
+        },
       },
     },
   });
