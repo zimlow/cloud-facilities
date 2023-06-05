@@ -21,6 +21,17 @@ export async function PATCH(req, res) {
     },
   });
 
-  const data = JSON.stringify(deleteBooking);
+  const updateAvailability = await prisma.trips.update({
+    where: {
+      trip_id: what.trip_id,
+    },
+    data: {
+      trip_availability: {
+        increment: 1,
+      },
+    },
+  });
+
+  const data = JSON.stringify(updateAvailability);
   return new NextResponse(data);
 }

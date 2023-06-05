@@ -9,21 +9,9 @@ const Login = () => {
   const emailRef = useRef();
   const pwRef = useRef();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const res = await fetch("/api/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ email: emailRef.current.value, password: pwRef.current.value }),
-  //   });
-
-  //   if (res.ok) {
-  //     router.push("..");
-  //   } else alert("Login failed");
-  // };
   const handleSubmit = async (e) => {
+    // inputs are automatically matched with database
+
     const result = await signIn("credentials", {
       email: emailRef.current.value,
       password: pwRef.current.value,

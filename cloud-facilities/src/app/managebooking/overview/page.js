@@ -1,4 +1,5 @@
 "use client";
+import { revalidatePath } from "next/cache";
 import { redirect, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 
@@ -43,9 +44,9 @@ const page = () => {
       },
       body: JSON.stringify({
         booking_reference: bookings.booking_reference,
+        trip_id: bookings.trip_id,
       }),
     });
-
     //if successful, redirect
     //else give error, do nothing.
     // redirect("/trips/skydive");
