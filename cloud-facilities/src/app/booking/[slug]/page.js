@@ -1,7 +1,8 @@
 import CancelButton from "@/app/components/CancelButton";
-import { redirect, refresh, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { prisma } from "@/db";
-import Link from "next/link";
+import NavBar from "@/app/components/NavBar";
+import Footer from "@/app/components/Footer";
 
 const BookingPage = async ({ params }) => {
   const getTrip = await prisma.trips.findUnique({

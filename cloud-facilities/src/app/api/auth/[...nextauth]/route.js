@@ -1,4 +1,3 @@
-import { SupabaseAdapter } from "@next-auth/supabase-adapter";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signIn } from "next-auth/react";
