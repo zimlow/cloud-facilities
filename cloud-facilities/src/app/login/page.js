@@ -1,18 +1,16 @@
 "use client";
 import React, { use, useRef } from "react";
-import { redirect } from "next/navigation";
-import { useRouter } from "next/navigation";
+
 import { useSession, signIn } from "next-auth/react";
 
 const Login = () => {
-  const router = useRouter();
   const emailRef = useRef();
   const pwRef = useRef();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     // inputs are automatically matched with database
 
-    const result = await signIn("credentials", {
+    await signIn("credentials", {
       email: emailRef.current.value,
       password: pwRef.current.value,
       redirect: true,
@@ -32,7 +30,7 @@ const Login = () => {
             type="text"
             id="email"
             name="email"
-            defaultValue="jasonteo@gmail.com"
+            defaultValue="bubbatea@playmade.com"
             ref={emailRef}
           />
           <label htmlFor="pw">Password:</label>

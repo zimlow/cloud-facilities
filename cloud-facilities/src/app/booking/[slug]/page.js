@@ -1,9 +1,6 @@
 import CancelButton from "@/app/components/CancelButton";
 import { redirect } from "next/navigation";
 import { prisma } from "@/db";
-import NavBar from "@/app/components/NavBar";
-import Footer from "@/app/components/Footer";
-
 const BookingPage = async ({ params }) => {
   const getTrip = await prisma.trips.findUnique({
     where: {
@@ -69,7 +66,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="fname"
           name="fname"
-          defaultValue="ah kow"
+          defaultValue="Bubba"
         />
         <label htmlFor="lname">Last name:</label>
         <input
@@ -77,7 +74,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="lname"
           name="lname"
-          defaultValue="tan"
+          defaultValue="Teo"
         />
         <label htmlFor="email">Email:</label>
         <input
@@ -85,7 +82,7 @@ const BookingPage = async ({ params }) => {
           type="email"
           id="email"
           name="email"
-          defaultValue="tanahkow@gmail.com"
+          defaultValue="bubbateo@playmade.com"
         />
         <label htmlFor="dob">Date of Birth:</label>
         <input
@@ -150,7 +147,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="cardname"
           name="cardname"
-          defaultValue="tan ah kow"
+          defaultValue="Bubba Teo"
         />
         <label htmlFor="cardnumber">Card Number:</label>
         <input

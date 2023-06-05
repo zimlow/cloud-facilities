@@ -6,7 +6,7 @@ const TripCard = (props) => {
   const tripSlots = props.trip_availability <= 0 ? null : props.trip_availability;
 
   return (
-    <Link href={`skydive/${props.trip_id}`}>
+    <Link href={`trips/skydive/${props.trip_id}`}>
       <div className="flex flex-row mx-1 mt-10">
         <div className="max-w-sm rounded overflow-hidden shadow-lg bg-slate-200">
           <img src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />

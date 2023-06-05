@@ -1,8 +1,9 @@
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signIn } from "next-auth/react";
+import { prisma } from "@/db";
 
-const handler = NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -10,7 +11,6 @@ const handler = NextAuth({
         email: { label: "Email", type: "text", placeholder: "email" },
         password: { label: "Password", type: "password" },
       },
-
       async authorize(credentials) {
         const authResponse = await fetch("http:localhost:3000/api/login", {
           method: "POST",
@@ -21,7 +21,6 @@ const handler = NextAuth({
         });
 
         const user = await authResponse.json();
-
         if (user) {
           return user;
         } else {
@@ -30,10 +29,44 @@ const handler = NextAuth({
       },
     }),
   ],
-
+  adapter: {
+    ...PrismaAdapter(prisma),
+    updateUser: ({ id, ...data }) =>
+      prisma.RegisteredUsers.update({ where: { user_id: id }, data, include: { sessions: true } }),
+  },
   pages: {
     signIn: "/login",
   },
-});
+
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    // Seconds - Throttle how frequently to write to database to extend a session.
+    // Use it to limit write operations. Set to 0 to always update the database.
+    updateAge: 24 * 60 * 60,
+
+    // generateSessionToken: () => {
+    //   return randomUUID?.() ?? randomBytes(32).toString("hex");
+    // },
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      console.log("jwt", token);
+      if (user) {
+        console.log("callback user: ", user);
+      }
+
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      console.log("--Session CALLED--", session, "--JWT TOKEN--", token);
+      session.user = token;
+      // session.user.user_email = user.user_email; //ADD THIS LINE SO THAT ROLL IS INCLUDED AS PART OF SESSION INFO.
+      return session;
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

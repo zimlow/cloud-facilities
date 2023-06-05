@@ -1,8 +1,5 @@
 import React from "react";
-import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
-
-const prisma = new PrismaClient();
 
 const Home = async () => {
   return (

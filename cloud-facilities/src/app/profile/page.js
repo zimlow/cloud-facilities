@@ -1,14 +1,17 @@
+"use client";
 import React from "react";
 import Footer from "../components/Footer";
-import { prisma } from "@/db";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 //   only authenticated user can see this
 const ProfilePage = () => {
-  // const getUser = async () => {
-  //   const user = await prisma.user.findUnique({
-
-  //   })
-  // }
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated: () => {
+      redirect("/login?callbackUrl=/profile");
+    },
+  });
 
   return (
     <>

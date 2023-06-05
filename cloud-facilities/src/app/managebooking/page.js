@@ -1,7 +1,6 @@
 import { prisma } from "@/db";
 import { redirect } from "next/navigation";
 import { GET } from "@/app/api/mybooking/route.js";
-import { Children } from "react";
 
 async function getBooking(data) {
   "use server";
