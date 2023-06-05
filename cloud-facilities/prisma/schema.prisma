@@ -11,6 +11,31 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+//for Auth to Prisma
+
+model Session {
+  id           String   @id @default(cuid())
+  user         RegisteredUsers  @relation(fields: [user_id], references: [user_id])
+  user_id      String
+  expires      DateTime
+  sessionToken String   @unique
+  accessToken  String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model VerificationRequest {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+}
+
+//Working Data Models
 
 model Destinations {
   city                   String  @unique
@@ -83,7 +108,7 @@ model Bookings {
 }
 
 model RegisteredUsers{
-  user_id String @id @default(uuid())
+  user_id String @id @default(cuid())
   user_lastName String
   user_firstName String 
   user_email String @unique
@@ -93,9 +118,22 @@ model RegisteredUsers{
   user_country String
   user_postal_code String
   user_passport_no String @unique
-  createdAt DateTime @default(now()) @ignore
+  user_image String?
   user_bookings Bookings[]
   user_contacts UserContacts[]
+  sessions Session[]
+  //nextauth
+  user_emailVerified DateTime?
+  providerType       String?
+  providerId         String?
+  providerAccountId  String?
+  refreshToken       String?
+  accessToken        String?
+  accessTokenExpires DateTime?
+  createdAt DateTime @default(now())
+  updatedAt          DateTime  @updatedAt 
+
+  @@unique([providerId, providerAccountId])
 }
 
 model UserContacts {
