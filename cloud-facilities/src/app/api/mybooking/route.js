@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/db";
 
 export async function POST(request) {
-  const what = await request.json();
+  const body = await request.json();
 
   const res = await prisma.bookings.findFirst({
     where: {
-      booking_reference: what.booking_reference,
+      booking_reference: body.booking_reference,
     },
     include: {
       trip: true,
@@ -19,16 +19,16 @@ export async function POST(request) {
 }
 
 export async function PATCH(request) {
-  const what = await request.json();
+  const body = await request.json();
 
   const res = await prisma.bookings.update({
     where: {
-      booking_reference: what.booking_reference,
+      booking_reference: body.booking_reference,
     },
     data: {
       user: {
         connect: {
-          user_id: what.user_id,
+          user_id: body.user_id,
         },
       },
     },
@@ -40,11 +40,11 @@ export async function PATCH(request) {
 }
 
 export async function DELETE(request) {
-  const what = await request.json();
+  const body = await request.json();
 
   const res = await prisma.bookings.delete({
     where: {
-      booking_reference: what.booking_reference,
+      booking_reference: body.booking_reference,
     },
   });
   const data = JSON.stringify(res);

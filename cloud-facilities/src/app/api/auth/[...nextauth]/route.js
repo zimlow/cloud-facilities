@@ -29,11 +29,8 @@ export const authOptions = {
       },
     }),
   ],
-  adapter: {
-    ...PrismaAdapter(prisma),
-    updateUser: ({ id, ...data }) =>
-      prisma.RegisteredUsers.update({ where: { user_id: id }, data, include: { sessions: true } }),
-  },
+
+  adapter: PrismaAdapter(prisma),
   pages: {
     signIn: "/login",
   },
@@ -51,17 +48,10 @@ export const authOptions = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      console.log("jwt", token);
-      if (user) {
-        console.log("callback user: ", user);
-      }
-
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      console.log("--Session CALLED--", session, "--JWT TOKEN--", token);
       session.user = token;
-      // session.user.user_email = user.user_email; //ADD THIS LINE SO THAT ROLL IS INCLUDED AS PART OF SESSION INFO.
       return session;
     },
   },

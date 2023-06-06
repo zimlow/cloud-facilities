@@ -3,7 +3,16 @@ import TripCard from "@/app/components/TripCard";
 import Link from "next/link";
 
 const skydive = async () => {
-  const skydiveTrips = await prisma.trips.findMany();
+  const skydiveTrips = await prisma.trips.findMany({
+    include: {
+      destination: true,
+    },
+    orderBy: {
+      destination: {
+        region: "desc",
+      },
+    },
+  });
 
   return (
     <>

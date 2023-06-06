@@ -1,6 +1,7 @@
 import { prisma } from "@/db";
 import { redirect } from "next/navigation";
 import { GET } from "@/app/api/mybooking/route.js";
+import Link from "next/link";
 
 async function getBooking(data) {
   "use server";
@@ -39,6 +40,14 @@ const managebooking = () => {
             Manage Booking
           </button>
         </form>
+        Already a user?{" "}
+        <Link
+          href="/login"
+          className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit"
+        >
+          Log in to your account
+        </Link>{" "}
+        instead
       </div>
     </>
   );
