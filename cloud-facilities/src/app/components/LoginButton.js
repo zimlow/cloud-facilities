@@ -14,8 +14,7 @@ const LoginButton = () => {
       {session ? (
         <div className="flex gap-4 ml-auto">
           <Link href="/profile" className="text-sky-600 flex">
-            Your Profile, {session?.user.user_lastName}
-            {session?.user.user_firstName}
+            {session?.user.user_lastName} {session?.user.user_firstName}
           </Link>
           <button onClick={() => signOut()}>Sign out</button>
         </div>
