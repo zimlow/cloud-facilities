@@ -19,7 +19,7 @@ async function main() {
         region: "AMERICAS",
         destination_highlights: ["Skydive San Diego", "Belmont Park", "San Diego Zoo"],
         destination_image: [
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ6mKdqgJXDM1k1C6v3XJuJBKn2_j0XPPkOPwCoVVT4QDBFpPnydDZMJ9gt0kcm3leurY&usqp=CAU",
+          "https://www.skydiveohio.com/wp-content/uploads/G0096598-2-1.jpg",
           "https://www.busytourist.com/wp-content/uploads/2020/06/Belmont-Park.jpg.webp",
           "https://upload.wikimedia.org/wikipedia/commons/4/4c/San_Diego_Zoo_Entrance_.jpg",
         ],
