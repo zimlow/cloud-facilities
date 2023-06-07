@@ -39,7 +39,7 @@ const profileBookings = async () => {
   return (
     <>
       <main className="profile-page">
-        <section className="relative block" style={{ height: "500px" }}>
+        <section className="relative block" style={{ height: "80vh" }}>
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
@@ -51,7 +51,7 @@ const profileBookings = async () => {
           </div>
         </section>
         <section className="relative py-16 bg-gray-300 h-full">
-          <div className="container mx-auto px-4 h-full">
+          <div className="container mx-auto px-12 h-full">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full  h-full  mb-6 shadow-xl rounded-lg -mt-64">
               <div className="px-6">
                 {/* tabs */}
