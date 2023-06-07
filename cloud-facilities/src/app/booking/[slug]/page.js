@@ -29,55 +29,81 @@ const BookingPage = async ({ params }) => {
     });
   }
 
+  // async function checkDupes(data) {
+  //   //check bookings where trip_id matches booking.trip_id
+  //   //check if already have passport no.
+
+  //   return Boolean(existingBooking);
+  // }
+
   async function createBooking(data) {
     "use server";
-    const newBooking = await prisma.bookings.create({
-      data: {
-        booking_reference: Math.random().toString(36).substring(2, 10).toUpperCase(),
-        trip: {
-          connect: { trip_id: getTrip.trip_id },
-        },
-        lastName: data.get("lname").valueOf(),
-        firstName: data.get("fname").valueOf(),
-        email: data.get("email").valueOf(),
-        passport_no: data.get("passport").valueOf(),
-        dob: data.get("dob").valueOf(),
-        address: data.get("address").valueOf(),
-        address_country: data.get("country").valueOf(),
-        address_postal: Number(data.get("postal").valueOf()),
-        home_no: Number(data.get("home").valueOf()),
-        mobile_no: Number(data.get("mobile").valueOf()),
+    const existingBooking = await prisma.bookings.findFirst({
+      where: {
+        AND: [
+          {
+            trip_id: getTrip.trip_id,
+          },
+          {
+            user: {
+              user_passport_no: data.get("passport").valueOf(),
+            },
+          },
+        ],
       },
     });
 
-    // if session is active, link the booking to the user
-    if (session) {
-      await prisma.bookings.update({
+    if (existingBooking) {
+      throw new Error("Existing Booking found");
+    } else {
+      const newBooking = await prisma.bookings.create({
+        data: {
+          booking_reference: Math.random().toString(36).substring(2, 9).toUpperCase(),
+          trip: {
+            connect: { trip_id: getTrip.trip_id },
+          },
+          lastName: data.get("lname").valueOf(),
+          firstName: data.get("fname").valueOf(),
+          email: data.get("email").valueOf(),
+          passport_no: data.get("passport").valueOf(),
+          dob: data.get("dob").valueOf(),
+          address: data.get("address").valueOf(),
+          address_country: data.get("country").valueOf(),
+          address_postal: Number(data.get("postal").valueOf()),
+          home_no: Number(data.get("home").valueOf()),
+          mobile_no: Number(data.get("mobile").valueOf()),
+        },
+      });
+
+      // if session is active, link the booking to the user
+      if (session) {
+        await prisma.bookings.update({
+          where: {
+            booking_reference: newBooking.booking_reference,
+          },
+          data: {
+            user: {
+              connect: {
+                user_id: session?.user.user_id,
+              },
+            },
+          },
+        });
+      }
+
+      await prisma.trips.update({
         where: {
-          booking_reference: newBooking.booking_reference,
+          trip_id: getTrip.trip_id,
         },
         data: {
-          user: {
-            connect: {
-              user_id: session?.user.user_id,
-            },
+          trip_availability: {
+            increment: -1,
           },
         },
       });
+
+      redirect("/confirmation");
     }
-
-    await prisma.trips.update({
-      where: {
-        trip_id: getTrip.trip_id,
-      },
-      data: {
-        trip_availability: {
-          increment: -1,
-        },
-      },
-    });
-
-    redirect("/confirmation");
   }
   //todo: add in mock payment
   return (
