@@ -7,7 +7,6 @@ import React from "react";
 
 const LoginButton = () => {
   const { data: session } = useSession();
-  console.log("session: ", session?.user.user_email);
 
   return (
     <div>
