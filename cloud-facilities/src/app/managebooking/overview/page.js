@@ -1,9 +1,10 @@
 "use client";
 import { revalidatePath } from "next/cache";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 
 const page = () => {
+  const router = useRouter();
   const updateIDref = useRef();
   const [bookings, setBookings] = useState([{}]);
   const searchParams = useSearchParams();
@@ -50,6 +51,7 @@ const page = () => {
     //if successful, redirect
     //else give error, do nothing.
     // redirect("/trips/skydive");
+    router.refresh("/trips");
   };
 
   useEffect(() => {

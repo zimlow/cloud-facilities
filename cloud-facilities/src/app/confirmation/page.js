@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-  //todo: implement email confirmation
+  const router = useRouter();
+  router.refresh("/trips");
+  // TODO : implement email confirmation
   return (
     <>
       <div>A confirmation email will be sent to your email shortly</div>

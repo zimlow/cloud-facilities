@@ -29,13 +29,6 @@ const BookingPage = async ({ params }) => {
     });
   }
 
-  // async function checkDupes(data) {
-  //   //check bookings where trip_id matches booking.trip_id
-  //   //check if already have passport no.
-
-  //   return Boolean(existingBooking);
-  // }
-
   async function createBooking(data) {
     "use server";
     const existingBooking = await prisma.bookings.findFirst({

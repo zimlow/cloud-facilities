@@ -61,9 +61,8 @@ const managebooking = async () => {
               href="/profile/bookings"
               className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit"
             >
-              Manage in your profile
+              Manage Booking in Profile
             </Link>{" "}
-            instead
           </div>
         )}
       </div>
