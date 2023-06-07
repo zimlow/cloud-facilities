@@ -14,7 +14,7 @@ const ProfilePage = async () => {
     redirect("/login?callbackUrl=/profile");
   }
 
-  const allDetails = await prisma.RegisteredUsers.findUnique({
+  const userDetails = await prisma.RegisteredUsers.findUnique({
     where: {
       user_email: session?.user?.user_email,
     },
@@ -43,7 +43,7 @@ const ProfilePage = async () => {
     },
   });
 
-  const contactDetails = allDetails.user_contacts;
+  const contactDetails = userDetails.user_contacts;
 
   return (
     <>
@@ -100,7 +100,7 @@ const ProfilePage = async () => {
                           type="text"
                           id="fName"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder={allDetails.user_firstName}
+                          placeholder={userDetails.user_firstName}
                           disabled
                         />
                       </div>
@@ -115,7 +115,7 @@ const ProfilePage = async () => {
                           type="text"
                           id="lName"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder={allDetails.user_lastName}
+                          placeholder={userDetails.user_lastName}
                           disabled
                         />
                       </div>
@@ -130,7 +130,7 @@ const ProfilePage = async () => {
                           type="email"
                           id="email"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder={allDetails.user_email}
+                          placeholder={userDetails.user_email}
                           disabled
                         />
                       </div>
@@ -145,7 +145,7 @@ const ProfilePage = async () => {
                           type="text"
                           id="DOB"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder={allDetails.user_dob}
+                          placeholder={userDetails.user_dob}
                           disabled
                         />
                       </div>
@@ -160,7 +160,7 @@ const ProfilePage = async () => {
                           type="text"
                           id="address"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder={allDetails.user_address}
+                          placeholder={userDetails.user_address}
                           disabled
                         />
                       </div>
@@ -175,7 +175,7 @@ const ProfilePage = async () => {
                           type="text"
                           id="country"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder={allDetails.user_country}
+                          placeholder={userDetails.user_country}
                           disabled
                         />
                       </div>
@@ -190,7 +190,7 @@ const ProfilePage = async () => {
                           type="text"
                           id="postal"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder={allDetails.user_postal_code}
+                          placeholder={userDetails.user_postal_code}
                           disabled
                         />
                       </div>
@@ -206,58 +206,15 @@ const ProfilePage = async () => {
                           type="text"
                           id="passportNo"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          placeholder={allDetails.user_passport_no}
+                          placeholder={userDetails.user_passport_no}
                           disabled
                         />
                       </div>
                     </div>
+                    {/* ----CONTACTS---- */}
                     <div className="font-bold text-xl underline text-start "> Contact Details</div>
-
                     <div className="mb-6">
                       <ContactCard contactdetails={contactDetails} />
-                      {/* <label
-                        htmlFor="mobile"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Mobile No.
-                      </label>
-                      <input
-                        type="text"
-                        id="mobile"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder={allDetails.user_contacts[0].contact_value}
-                        disabled
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label
-                        htmlFor="home"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Home No.
-                      </label>
-                      <input
-                        type="text"
-                        id="home"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder={allDetails.user_contacts[1].contact_value}
-                        disabled
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label
-                        htmlFor="office"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Office No.
-                      </label>
-                      <input
-                        type="text"
-                        id="office"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder={allDetails.user_contacts[2].contact_value}
-                        disabled
-                      />*/}
                     </div>
                   </form>
                 </div>

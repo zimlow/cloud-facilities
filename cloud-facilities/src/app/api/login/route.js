@@ -14,6 +14,8 @@ export async function POST(req, res) {
 
   if (user && (await bcrypt.compare(body.password, user.user_hash))) {
     const { user_hash, ...userWithoutPassword } = user;
+
+    // todo: change payload to include only the necessary data
     const accessToken = signJwtAccessToken(userWithoutPassword);
     const result = { ...userWithoutPassword, accessToken };
 

@@ -1,18 +1,39 @@
 import CancelButton from "@/app/components/CancelButton";
 import { redirect } from "next/navigation";
 import { prisma } from "@/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 const BookingPage = async ({ params }) => {
+  let homeContacts;
+  let mobileContacts;
+  const session = await getServerSession(authOptions);
+
   const getTrip = await prisma.trips.findUnique({
     where: {
       trip_id: params.slug,
     },
   });
 
+  if (session) {
+    homeContacts = await prisma.UserContacts.findFirst({
+      where: {
+        AND: [{ user_id: session?.user.user_id }, { contact_type: "HOME" }],
+      },
+    });
+
+    mobileContacts = await prisma.UserContacts.findFirst({
+      where: {
+        AND: [{ user_id: session?.user.user_id }, { contact_type: "MOBILE" }],
+      },
+    });
+  }
+
   async function createBooking(data) {
     "use server";
-    await prisma.bookings.create({
+    const newBooking = await prisma.bookings.create({
       data: {
-        booking_reference: Math.random().toString(36).substring(2, 17),
+        booking_reference: Math.random().toString(36).substring(2, 10).toUpperCase(),
         trip: {
           connect: { trip_id: getTrip.trip_id },
         },
@@ -29,6 +50,22 @@ const BookingPage = async ({ params }) => {
       },
     });
 
+    // if session is active, link the booking to the user
+    if (session) {
+      await prisma.bookings.update({
+        where: {
+          booking_reference: newBooking.booking_reference,
+        },
+        data: {
+          user: {
+            connect: {
+              user_id: session?.user.user_id,
+            },
+          },
+        },
+      });
+    }
+
     await prisma.trips.update({
       where: {
         trip_id: getTrip.trip_id,
@@ -39,9 +76,10 @@ const BookingPage = async ({ params }) => {
         },
       },
     });
+
     redirect("/confirmation");
   }
-
+  //todo: add in mock payment
   return (
     <>
       <div className="font-bold text-xl mb-2">{getTrip.city}</div>
@@ -57,7 +95,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="passport"
           name="passport"
-          defaultValue="K12345678B"
+          defaultValue={session?.user.user_passport_no || null}
         />
         <br />
         <label htmlFor="fname">First name:</label>
@@ -66,7 +104,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="fname"
           name="fname"
-          defaultValue="Bubba"
+          defaultValue={session?.user.user_lastName || null}
         />
         <label htmlFor="lname">Last name:</label>
         <input
@@ -74,7 +112,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="lname"
           name="lname"
-          defaultValue="Teo"
+          defaultValue={session?.user.user_firstName || null}
         />
         <label htmlFor="email">Email:</label>
         <input
@@ -82,7 +120,7 @@ const BookingPage = async ({ params }) => {
           type="email"
           id="email"
           name="email"
-          defaultValue="bubbateo@playmade.com"
+          defaultValue={session?.user.user_email || null}
         />
         <label htmlFor="dob">Date of Birth:</label>
         <input
@@ -90,7 +128,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="dob"
           name="dob"
-          defaultValue="19 sep 2023"
+          defaultValue={session?.user.user_dob || null}
         />
         <br />
         <label htmlFor="address">Address:</label>
@@ -99,7 +137,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="address"
           name="address"
-          defaultValue="123 address road #01-01"
+          defaultValue={session?.user.user_address || null}
         />
         <label htmlFor="country">Country:</label>
         <input
@@ -107,7 +145,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="country"
           name="country"
-          defaultValue="Singapore"
+          defaultValue={session?.user.user_country || null}
         />
         <label htmlFor="postal">Postal Code:</label>
         <input
@@ -115,7 +153,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="postal"
           name="postal"
-          defaultValue="666000"
+          defaultValue={session?.user.user_postal_code || null}
         />
         <br />
         <br />
@@ -126,8 +164,9 @@ const BookingPage = async ({ params }) => {
           type="tel"
           id="home"
           name="home"
-          defaultValue="1234"
-          //regex pattern
+          defaultValue={homeContacts?.contact_value || null}
+
+          //todo: implement regex pattern
         />
         <label htmlFor="mobile">Mobile Number:</label>
         <input
@@ -135,8 +174,8 @@ const BookingPage = async ({ params }) => {
           type="tel"
           id="mobile"
           name="mobile"
-          defaultValue="5678"
-          //regex pattern
+          defaultValue={mobileContacts?.contact_value || null}
+          //todo: implement regex pattern
         />
         <br />
         <br />
@@ -147,7 +186,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="cardname"
           name="cardname"
-          defaultValue="Bubba Teo"
+          defaultValue="Jimmy G"
         />
         <label htmlFor="cardnumber">Card Number:</label>
         <input
@@ -155,7 +194,7 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="cardnumber"
           name="cardnumber"
-          defaultValue="1234567890123456"
+          defaultValue="1111555599993333"
         />
         <label htmlFor="expmonth">Expiry:</label>
         <input

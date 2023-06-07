@@ -30,7 +30,7 @@ const Login = () => {
             type="text"
             id="email"
             name="email"
-            defaultValue="bubbatea@playmade.com"
+            defaultValue="jimmy@gg.com"
             ref={emailRef}
           />
           <label htmlFor="pw">Password:</label>

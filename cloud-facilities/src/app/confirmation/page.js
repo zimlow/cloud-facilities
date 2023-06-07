@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const page = () => {
+  //todo: implement email confirmation
   return (
     <>
       <div>A confirmation email will be sent to your email shortly</div>
