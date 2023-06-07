@@ -55,7 +55,7 @@ const BookingPage = async ({ params }) => {
           trip: {
             connect: { trip_id: getTrip.trip_id },
           },
-          lastName: data.get("lname").valueOf(),
+          lastName: data.get("lname").valueOf().toUpperCase(),
           firstName: data.get("fname").valueOf(),
           email: data.get("email").valueOf(),
           passport_no: data.get("passport").valueOf(),

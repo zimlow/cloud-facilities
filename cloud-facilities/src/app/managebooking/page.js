@@ -9,15 +9,14 @@ async function getBooking(data) {
   const res = await prisma.bookings.findFirst({
     where: {
       AND: [
-        { booking_reference: data.get("booking_reference").valueOf() },
-        { lastName: data.get("lname").valueOf() },
+        { booking_reference: data.get("booking_reference").valueOf().toUpperCase() },
+        { lastName: data.get("lname").valueOf().toUpperCase() },
       ],
     },
     include: {
       trip: true,
     },
   });
-  console.log(res);
   redirect(`/managebooking/overview?booking=${res.booking_reference}`);
 }
 
