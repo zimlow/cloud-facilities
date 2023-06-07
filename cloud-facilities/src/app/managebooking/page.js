@@ -1,7 +1,8 @@
 import { prisma } from "@/db";
 import { redirect } from "next/navigation";
-import { GET } from "@/app/api/mybooking/route.js";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 async function getBooking(data) {
   "use server";
@@ -20,7 +21,9 @@ async function getBooking(data) {
   redirect(`/managebooking/overview?booking=${res.booking_reference}`);
 }
 
-const managebooking = () => {
+const managebooking = async () => {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
       <div className="text-center place-self-center text-9xl">Manage Booking</div>
@@ -40,14 +43,29 @@ const managebooking = () => {
             Manage Booking
           </button>
         </form>
-        Already a user?{" "}
-        <Link
-          href="/login"
-          className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit"
-        >
-          Log in to your account
-        </Link>{" "}
-        instead
+        {!session ? (
+          <div>
+            Already a user?{" "}
+            <Link
+              href="/login"
+              className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit"
+            >
+              Log in to your account
+            </Link>{" "}
+            instead
+          </div>
+        ) : (
+          <div>
+            Logged in?{" "}
+            <Link
+              href="/profile/bookings"
+              className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit"
+            >
+              Manage in your profile
+            </Link>{" "}
+            instead
+          </div>
+        )}
       </div>
     </>
   );

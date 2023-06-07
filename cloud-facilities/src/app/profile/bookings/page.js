@@ -50,9 +50,9 @@ const profileBookings = async () => {
             <span id="tintOverlay" className="w-full h-full absolute opacity-50 bg-black"></span>
           </div>
         </section>
-        <section className="relative py-16 bg-gray-300">
-          <div className="container mx-auto px-4 ">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+        <section className="relative py-16 bg-gray-300 h-full">
+          <div className="container mx-auto px-4 h-full">
+            <div className="relative flex flex-col min-w-0 break-words bg-white w-full  h-full  mb-6 shadow-xl rounded-lg -mt-64">
               <div className="px-6">
                 {/* tabs */}
                 <div className="mr-4 p-3 text-center">
@@ -75,7 +75,7 @@ const profileBookings = async () => {
                     </li>
                   </ul>
 
-                  {/* --FORM -- */}
+                  {/* -------------FORM -------------- */}
                   <div className="relative">
                     <h1 className="text-3xl text-start py-5">Upcoming Trips</h1>
                     {bookings.map((booking) => {
@@ -85,7 +85,7 @@ const profileBookings = async () => {
                             <div>Booking Reference {booking.booking_reference.toUpperCase()}</div>
                             <div className="pt-2">{booking.trip.destination.city}</div>
                           </div>
-                          {/* --trip details card-- */}
+                          {/* ---------trip details card--------- */}
                           <div className="flex divide-x-2 divide-slate-400 shadow-lg text-start my-1 bg-blue-50 rounded">
                             <div className="p-3 w-1/5">
                               <p className="text-xl">{booking.trip.trip_title}</p>
