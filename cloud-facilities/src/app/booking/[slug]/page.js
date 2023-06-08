@@ -31,6 +31,18 @@ const BookingPage = async ({ params }) => {
 
   async function createBooking(data) {
     "use server";
+
+    const lastName = data.get("lname").valueOf().toUpperCase();
+    const firstName = data.get("fname").valueOf();
+    const email = data.get("email").valueOf();
+    const passport_no = data.get("passport").valueOf().toUpperCase();
+    const dob = data.get("dob").valueOf();
+    const address = data.get("address").valueOf();
+    const address_country = data.get("country").valueOf();
+    const address_postal = Number(data.get("postal").valueOf());
+    const home_no = Number(data.get("home").valueOf());
+    const mobile_no = Number(data.get("mobile").valueOf());
+
     const existingBooking = await prisma.bookings.findFirst({
       where: {
         AND: [
@@ -55,16 +67,16 @@ const BookingPage = async ({ params }) => {
           trip: {
             connect: { trip_id: getTrip.trip_id },
           },
-          lastName: data.get("lname").valueOf().toUpperCase(),
-          firstName: data.get("fname").valueOf(),
-          email: data.get("email").valueOf(),
-          passport_no: data.get("passport").valueOf(),
-          dob: data.get("dob").valueOf(),
-          address: data.get("address").valueOf(),
-          address_country: data.get("country").valueOf(),
-          address_postal: Number(data.get("postal").valueOf()),
-          home_no: Number(data.get("home").valueOf()),
-          mobile_no: Number(data.get("mobile").valueOf()),
+          lastName: lastName,
+          firstName: firstName,
+          email: email,
+          passport_no: passport_no,
+          dob: dob,
+          address: address,
+          address_country: address_country,
+          address_postal: address_postal,
+          home_no: home_no,
+          mobile_no: mobile_no,
         },
       });
 
@@ -115,6 +127,7 @@ const BookingPage = async ({ params }) => {
           id="passport"
           name="passport"
           defaultValue={session?.user.user_passport_no || null}
+          required
         />
         <br />
         <label htmlFor="fname">First name:</label>
@@ -123,7 +136,8 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="fname"
           name="fname"
-          defaultValue={session?.user.user_lastName || null}
+          defaultValue={session?.user.user_firstName || null}
+          required
         />
         <label htmlFor="lname">Last name:</label>
         <input
@@ -131,15 +145,18 @@ const BookingPage = async ({ params }) => {
           type="text"
           id="lname"
           name="lname"
-          defaultValue={session?.user.user_firstName || null}
+          defaultValue={session?.user.user_lastName || null}
+          required
         />
         <label htmlFor="email">Email:</label>
         <input
-          className="border border-slate-300 rounded-md"
+          className="border border-slate-300 rounded-md "
           type="email"
           id="email"
           name="email"
           defaultValue={session?.user.user_email || null}
+          required
+          title="Please enter a valid email address"
         />
         <label htmlFor="dob">Date of Birth:</label>
         <input
@@ -148,6 +165,9 @@ const BookingPage = async ({ params }) => {
           id="dob"
           name="dob"
           defaultValue={session?.user.user_dob || null}
+          required
+          pattern="(0[1-9]|1[0-9]|2[0-9]|3[0-1])/(0[1-9]|1[0-2])/19\d{2}|20\d{2}"
+          title="Please enter a valid date in DD/MM/YYYY format"
         />
         <br />
         <label htmlFor="address">Address:</label>
@@ -157,6 +177,7 @@ const BookingPage = async ({ params }) => {
           id="address"
           name="address"
           defaultValue={session?.user.user_address || null}
+          required
         />
         <label htmlFor="country">Country:</label>
         <input
@@ -165,6 +186,7 @@ const BookingPage = async ({ params }) => {
           id="country"
           name="country"
           defaultValue={session?.user.user_country || null}
+          required
         />
         <label htmlFor="postal">Postal Code:</label>
         <input
@@ -173,6 +195,9 @@ const BookingPage = async ({ params }) => {
           id="postal"
           name="postal"
           defaultValue={session?.user.user_postal_code || null}
+          required
+          pattern="[0-9]{6}"
+          title="Please enter a valid postal code"
         />
         <br />
         <br />
@@ -184,6 +209,7 @@ const BookingPage = async ({ params }) => {
           id="home"
           name="home"
           defaultValue={homeContacts?.contact_value || null}
+          required
 
           //todo: implement regex pattern
         />
@@ -194,6 +220,7 @@ const BookingPage = async ({ params }) => {
           id="mobile"
           name="mobile"
           defaultValue={mobileContacts?.contact_value || null}
+          required
           //todo: implement regex pattern
         />
         <br />
@@ -206,6 +233,7 @@ const BookingPage = async ({ params }) => {
           id="cardname"
           name="cardname"
           defaultValue="Jimmy G"
+          required
         />
         <label htmlFor="cardnumber">Card Number:</label>
         <input
@@ -214,6 +242,9 @@ const BookingPage = async ({ params }) => {
           id="cardnumber"
           name="cardnumber"
           defaultValue="1111555599993333"
+          required
+          pattern="[0-9]{13,16}"
+          title="Please enter a valid credit card number"
         />
         <label htmlFor="expmonth">Expiry:</label>
         <input
@@ -222,6 +253,9 @@ const BookingPage = async ({ params }) => {
           id="expmonth"
           name="expmonth"
           defaultValue="09"
+          required
+          pattern="^(0[1-9]|1[0-2])$"
+          maxLength="2"
         />
         /
         <label htmlFor="expyear" />
@@ -231,6 +265,9 @@ const BookingPage = async ({ params }) => {
           id="expyear"
           name="expyear"
           defaultValue="23"
+          pattern="2[3-9]|3[0-3]"
+          maxLength="2"
+          required
         />
         <label htmlFor="cvv">CVV:</label>
         <input
@@ -239,6 +276,9 @@ const BookingPage = async ({ params }) => {
           id="cvv"
           name="cvv"
           defaultValue="911"
+          pattern="[0-9]{3,4}"
+          title="Please enter a valid CVV"
+          required
         />
         <br />
         <button type="submit">Submit</button>

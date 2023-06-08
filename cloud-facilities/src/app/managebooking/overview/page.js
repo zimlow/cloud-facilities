@@ -1,9 +1,12 @@
 "use client";
-import { revalidatePath } from "next/cache";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 
 const page = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   const updateIDref = useRef();
   const [bookings, setBookings] = useState([{}]);
@@ -33,25 +36,27 @@ const page = () => {
         user_id: updateIDref.current.value,
       }),
     });
-    //if successful, reflect in booking
-    //else give error, do nothing.
   };
 
   const handleCancel = async () => {
-    const cancel = await fetch("/api/cancelbooking", {
+    const response = await fetch("/api/cancelbooking", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: session?.user?.accessToken,
       },
       body: JSON.stringify({
         booking_reference: bookings.booking_reference,
         trip_id: bookings.trip_id,
       }),
     });
-    //if successful, redirect
-    //else give error, do nothing.
-    // redirect("/trips/skydive");
-    router.refresh("/trips");
+
+    if (response.ok) {
+      router.refresh("/trips");
+      alert("Booking Cancelled");
+    } else {
+      alert(`Error: ${response.status} ${response.statusText}`);
+    }
   };
 
   useEffect(() => {
@@ -80,9 +85,23 @@ const page = () => {
       <button className="bg-red-100" onClick={linkAccount}>
         Link Booking
       </button>
-      <button className="bg-blue-200" onClick={handleCancel}>
-        Cancel Booking
-      </button>
+      {session ? (
+        <>
+          <button className="bg-blue-200" onClick={handleCancel}>
+            Cancel Booking
+          </button>
+        </>
+      ) : (
+        <div>
+          <Link
+            className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit"
+            href="/login"
+          >
+            Register/ Login
+          </Link>{" "}
+          to cancel Booking
+        </div>
+      )}
     </div>
   );
 };
