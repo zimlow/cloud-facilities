@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Email } from "@/app/components/Email";
+import nodemailer from "nodemailer";
+import { render, renderAsync } from "@react-email/render";
 
 const BookingPage = async ({ params }) => {
   let homeContacts;
@@ -106,6 +109,28 @@ const BookingPage = async ({ params }) => {
           },
         },
       });
+
+      // email
+      const transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.ETH_USER,
+          pass: process.env.ETH_PASSWORD,
+        },
+      });
+
+      const emailHtml = render(<Email booking_ref={newBooking.booking_reference} />);
+
+      const options = {
+        from: "skydive@cloudfac.com",
+        to: "test@gmail.com",
+        subject: "Cloud Facilities Trip Booking Confirmation",
+        html: emailHtml,
+      };
+
+      transporter.sendMail(options);
 
       redirect("/confirmation");
     }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const page = async () => {
   const router = useRouter();
 
   // TODO : implement email confirmation
