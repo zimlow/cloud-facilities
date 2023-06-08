@@ -39,7 +39,7 @@ const profileBookings = async () => {
   return (
     <>
       <main className="profile-page">
-        <section className="relative block" style={{ height: "80vh" }}>
+        <section className="relative block" style={{ height: "50vh" }}>
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
@@ -50,67 +50,62 @@ const profileBookings = async () => {
             <span id="tintOverlay" className="w-full h-full absolute opacity-50 bg-black"></span>
           </div>
         </section>
-        <section className="relative py-16 bg-gray-300 h-full">
-          <div className="container mx-auto px-12 h-full">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full  h-full  mb-6 shadow-xl rounded-lg -mt-64">
-              <div className="px-6">
-                {/* tabs */}
-                <div className="mr-4 p-3 text-center">
-                  <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                    <li className="mr-2">
-                      <Link
-                        href="/profile"
-                        className="text-lg inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                      >
-                        Personal Details
-                      </Link>
-                    </li>
-                    <li className="mr-2">
-                      <Link
-                        href="/profile/bookings"
-                        className="text-lg inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500 "
-                      >
-                        Bookings
-                      </Link>
-                    </li>
-                  </ul>
+        <section className="relative bg-white-300">
+          <div className="px-6">
+            <div className="mr-4 p-3 text-center">
+              <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                <li className="mr-2">
+                  <Link
+                    href="/profile"
+                    className="text-lg inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                  >
+                    Personal Details
+                  </Link>
+                </li>
+                <li className="mr-2">
+                  <Link
+                    href="/profile/bookings"
+                    className="text-lg inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500 "
+                  >
+                    Bookings
+                  </Link>
+                </li>
+              </ul>
 
-                  {/* -------------FORM -------------- */}
-                  <div className="relative">
-                    <h1 className="text-3xl text-start py-5">Upcoming Trips</h1>
-                    {bookings.map((booking) => {
-                      return (
-                        <>
-                          <div className="text-2xl text-start divide-y-2 divide-slate-200 my-2">
-                            <div>Booking Reference {booking.booking_reference.toUpperCase()}</div>
-                            <div className="pt-2">{booking.trip.destination.city}</div>
-                          </div>
-                          {/* ---------trip details card--------- */}
-                          <div className="flex divide-x-2 divide-slate-400 shadow-lg text-start my-1 bg-blue-50 rounded">
-                            <div className="p-3 w-1/5">
-                              <p className="text-xl">{booking.trip.trip_title}</p>
+              {/* -------------FORM -------------- */}
+              <div className="relative">
+                <h1 className="text-3xl text-start py-5">Upcoming Trips</h1>
+                {bookings.map((booking) => {
+                  return (
+                    <>
+                      <div className="text-2xl text-start divide-y-2 divide-slate-200 my-2">
+                        <div>Booking Reference {booking.booking_reference.toUpperCase()}</div>
+                        <div className="pt-2">{booking.trip.destination.city}</div>
+                      </div>
+                      {/* ---------trip details card--------- */}
+                      <div className="flex divide-x-2 divide-slate-400 shadow-lg text-start my-1 bg-blue-50 rounded">
+                        <div className="p-3 w-1/5">
+                          <p className="text-xl">{booking.trip.trip_title}</p>
 
-                              <p className="text-sm text-slate-400">{booking.trip.activity}</p>
-                            </div>
-                            <div className="px-5 py-2 w-3/5 items-center justify-center flex">
-                              <div className="text-3xl ">
-                                {booking.trip.trip_start_date} to {booking.trip.trip_end_date}
-                              </div>
-                            </div>
-                            <div className="p-3 w-1/5 items-center justify-center flex ">
-                              <Link
-                                className="rounded bg-teal-400 p-1 font-semibold"
-                                href={`/managebooking/overview?booking=${booking.booking_reference}`}
-                              >
-                                Manage Booking
-                              </Link>
-                            </div>
+                          <p className="text-sm text-slate-400">{booking.trip.activity}</p>
+                        </div>
+                        <div className="px-5 py-2 w-3/5 items-center justify-center flex">
+                          <div className="text-3xl ">
+                            {booking.trip.trip_start_date} to {booking.trip.trip_end_date}
                           </div>
-                        </>
-                      );
-                    })}
-                  </div>
-                </div>
+                        </div>
+                        <div className="p-3 w-1/5 items-center justify-center flex ">
+                          <Link
+                            className="rounded bg-teal-300 p-1 font-semibold"
+                            href={`/managebooking/overview?booking=${booking.booking_reference}`}
+                          >
+                            Manage Booking
+                          </Link>
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
               </div>
             </div>
           </div>
