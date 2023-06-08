@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 
 const page = () => {
@@ -26,6 +26,10 @@ const page = () => {
   };
 
   const linkAccount = async () => {
+    if (bookings.user_id) {
+      alert("Booking already linked to an account");
+      return;
+    }
     const update = await fetch("/api/mybooking", {
       method: "PATCH",
       headers: {
@@ -36,6 +40,18 @@ const page = () => {
         user_id: updateIDref.current.value,
       }),
     });
+
+    if (update.ok) {
+      alert("Booking linked!");
+      router.refresh("profile/bookings");
+      if (session) {
+        router.push("/profile/bookings");
+      } else {
+        router.push("/trips/skydive");
+      }
+    } else {
+      alert(`Error: ${update.status} ${update.statusText}`);
+    }
   };
 
   const handleCancel = async () => {
@@ -52,8 +68,14 @@ const page = () => {
     });
 
     if (response.ok) {
-      router.refresh("/trips");
       alert("Booking Cancelled");
+      router.refresh("profile/bookings");
+      router.refresh("trips/skydive");
+      if (session) {
+        router.push("/profile/bookings");
+      } else {
+        router.push("/trips/skydive");
+      }
     } else {
       alert(`Error: ${response.status} ${response.statusText}`);
     }
