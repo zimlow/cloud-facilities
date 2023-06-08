@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 
@@ -13,7 +12,7 @@ const LoginButton = () => {
       {session ? (
         <div className="flex gap-4 ml-auto">
           <Link href="/profile" className="text-sky-600 flex">
-            {session?.user.user_lastName} {session?.user.user_firstName}
+            {session?.user.user_firstName} {session?.user.user_lastName}
           </Link>
           <button onClick={() => signOut()}>Sign out</button>
         </div>

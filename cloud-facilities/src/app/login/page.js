@@ -1,7 +1,7 @@
 "use client";
-import React, { use, useRef } from "react";
+import React, { useRef } from "react";
 
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const emailRef = useRef();
