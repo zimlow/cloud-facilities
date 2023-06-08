@@ -20,29 +20,44 @@ const Login = () => {
 
   return (
     <>
-      <div className="text-center place-self-center text-8xl">Login and signup here</div>
+      <section className="relative block" style={{ height: "30vh" }}>
+        <div
+          className="absolute w-full h-full overflow-hidden bg-center bg-cover"
+          style={{
+            backgroundImage: "url('/moon.jpg')",
+          }}
+        >
+          <div className="flex text-center justify-center items-center text-8xl font-bold text-amber-100 h-full">
+            <p className="drop-shadow-2xl">Login</p>
+          </div>
+        </div>
+      </section>
 
-      <div className="flex flex-col justify-center items-center  gap-1">
-        <div className="px-7 py-4 shadow-lg bg-slate-200 rounded-md flex flex-col gap-2 my-10">
+      <div className="flex flex-row w-full text-start justify-center items-center my-10">
+        <div className="border-solid border-amber-100 border-4 p-4  rounded-lg shadow-lg">
           <label htmlFor="email">Email:</label>
+          <br />
           <input
-            className="border border-slate-300 rounded-md"
+            className="border border-slate-300 rounded-md mb-3"
             type="text"
             id="email"
             name="email"
             defaultValue="jimmy@gg.com"
             ref={emailRef}
           />
+          <br />
           <label htmlFor="pw">Password:</label>
+          <br />
           <input
-            className="border border-slate-300 rounded-md"
-            type="text"
+            className="border border-slate-300 rounded-md mb-3"
+            type="password"
             id="pw"
             name="pw"
             defaultValue="password"
             ref={pwRef}
           />
-          <button onClick={handleSubmit} type="submit" className="w-full bg-blue-200">
+          <br />
+          <button onClick={handleSubmit} type="submit" className="w-full bg-blue-200 rounded-md">
             Sign In
           </button>
         </div>

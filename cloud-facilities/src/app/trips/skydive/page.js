@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { prisma } from "../../../db";
 import TripCard from "@/app/components/TripCard";
 
@@ -46,22 +47,34 @@ const skydive = async () => {
 
   return (
     <>
-      <div className="p-5 bg-red-200 bg-origin-border text-center place-self-center text-9xl grow h-full">
-        Eat Sleep Skydive
-      </div>
-      <div className="grid-cols-3 bg-black-500/50 z-50">
-        {oceaniaTrips.map((trip) => {
-          return <TripCard key={trip.trip_id} {...trip} />;
-        })}
-        {asiaTrips.map((trip) => {
-          return <TripCard key={trip.trip_id} {...trip} />;
-        })}
-        {europeTrips.map((trip) => {
-          return <TripCard key={trip.trip_id} {...trip} />;
-        })}
-        {americasTrips.map((trip) => {
-          return <TripCard key={trip.trip_id} {...trip} />;
-        })}
+      <section className="relative block" style={{ height: "50vh" }}>
+        <div
+          className="absolute w-full h-full overflow-hidden bg-center bg-cover"
+          style={{
+            backgroundImage: "url('/destinations2.jpg')",
+          }}
+        >
+          <div className="flex text-center justify-center items-center text-8xl font-bold text-amber-100 h-full">
+            <p className="drop-shadow-2xl">Destinations</p>
+          </div>
+        </div>
+      </section>
+      <div className=" bg-black-300/50 w-full h-full mt-10">
+        <div className="flex flex-row w-full pb-10">
+          <p className="px-32 font-bold text-3xl">OCEANIA</p>
+          {oceaniaTrips.map((trip) => {
+            return <TripCard key={trip.trip_id} {...trip} />;
+          })}
+        </div>
+
+        <div className=" bg-black-300/50 w-full h-full mt-10">
+          <div className="flex flex-row w-full pb-10">
+            <p className="px-32 font-bold text-3xl">AMERICA</p>
+            {oceaniaTrips.map((trip) => {
+              return <TripCard key={trip.trip_id} {...trip} />;
+            })}
+          </div>
+        </div>
       </div>
     </>
   );

@@ -88,7 +88,9 @@ const page = () => {
   return (
     <div className="text-center">
       <div>Manage Your Booking for {bookings.trip?.trip_title}</div>
-      <div>Booking Reference: {bookings.booking_reference}</div>
+      <div>
+        Booking Reference: <p className="font-bold">{bookings.booking_reference}</p>
+      </div>
       <br />
       <div>rest of booking details..</div>
       <br />

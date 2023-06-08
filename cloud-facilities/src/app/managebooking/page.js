@@ -25,45 +25,65 @@ const managebooking = async () => {
 
   return (
     <>
-      <div className="text-center place-self-center text-9xl">Manage Booking</div>
-      <br />
-      <div className="justify-end w-full">
-        <form action={getBooking} className="w-full">
-          <input
-            placeholder="Enter your Ten-character Booking Reference"
-            name="booking_reference"
-            className="w-4/12"
-          ></input>
-          <br />
-          <input placeholder="Enter your last/family name" name="lname" className="w-4/12"></input>
-          <br />
+      <section className="relative block" style={{ height: "40vh" }}>
+        <div
+          className="absolute top-0 w-full h-full bg-center bg-cover"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
+          }}
+        >
+          <span id="tintOverlay" className="w-full h-full absolute opacity-20 bg-black"></span>
 
-          <button type="submit" className="w-2/12 bg-blue-200">
+          <div className="flex text-center justify-center items-center text-8xl font-bold text-amber-100 h-full">
             Manage Booking
-          </button>
-        </form>
-        {!session ? (
-          <div>
-            Already a user?{" "}
-            <Link
-              href="/login"
-              className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit"
-            >
-              Log in to your account
-            </Link>{" "}
-            instead
           </div>
-        ) : (
-          <div>
-            Logged in?{" "}
-            <Link
-              href="/profile/bookings"
-              className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit"
-            >
-              Manage Booking in Profile
-            </Link>{" "}
-          </div>
-        )}
+        </div>
+      </section>
+      <br />
+      <div className="flex flex-row w-full text-center justify-center items-center ">
+        <div className="border-solid border-amber-100 border-4 p-4 pb-2 rounded-lg mb-3 shadow-lg">
+          <form action={getBooking} className="w-full">
+            <input
+              placeholder="Enter your Seven-character Booking Reference"
+              name="booking_reference"
+              className="w-full border-2 border-solid border-slate-200 text-sm mb-5"
+            ></input>
+            <br />
+            <input
+              placeholder="Enter your last/family name"
+              name="lname"
+              className="w-full border-2 border-solid border-slate-200 text-sm mb-5"
+            ></input>
+            <br />
+
+            <button type="submit" className="w-4/5 bg-blue-200 rounded mb-5">
+              Submit
+            </button>
+          </form>
+          {!session ? (
+            <div className="relative mb-3">
+              Already a user?{" "}
+              <Link
+                href="/login"
+                className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit mb-5"
+              >
+                Log in to your account
+              </Link>{" "}
+              instead
+            </div>
+          ) : (
+            <div className="relative mb-3">
+              Logged in?{" "}
+              <Link
+                href="/profile/bookings"
+                className="text-teal-400 hover:underline hover:decoration-1 hover:decoration-inherit mb-3"
+              >
+                Manage Booking in Profile
+              </Link>{" "}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
