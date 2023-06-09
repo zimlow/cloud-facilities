@@ -70,7 +70,7 @@ const skydive = async () => {
         <div className=" bg-black-300/50 w-full h-full mt-10">
           <div className="flex flex-row w-full pb-10">
             <p className="px-32 font-bold text-3xl">AMERICA</p>
-            {oceaniaTrips.map((trip) => {
+            {americasTrips.map((trip) => {
               return <TripCard key={trip.trip_id} {...trip} />;
             })}
           </div>

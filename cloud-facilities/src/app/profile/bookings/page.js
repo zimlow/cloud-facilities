@@ -79,7 +79,12 @@ const profileBookings = async () => {
                   return (
                     <>
                       <div className="text-2xl text-start divide-y-2 divide-slate-200 my-2">
-                        <div>Booking Reference {booking.booking_reference.toUpperCase()}</div>
+                        <div>
+                          Booking Reference{" "}
+                          <p className="font-semibold text-blue-700">
+                            {booking.booking_reference.toUpperCase()}
+                          </p>
+                        </div>
                         <div className="pt-2">{booking.trip.destination.city}</div>
                       </div>
                       {/* ---------trip details card--------- */}

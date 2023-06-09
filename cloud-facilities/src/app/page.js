@@ -15,7 +15,7 @@ const Home = async () => {
             <Link href="/trips/skydive">
               <p className="text-yellow-500 hover:text-blue-300 py-3">Enter</p>
             </Link>
-            <Link href="/trips/skydive">
+            <Link href="/trips/aboutUs">
               <p className="text-yellow-500 hover:text-blue-300 py-3">About Us</p>
             </Link>
             <Link href="/trips/skydive">

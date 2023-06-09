@@ -42,7 +42,7 @@ const Login = () => {
             type="text"
             id="email"
             name="email"
-            defaultValue="jimmy@gg.com"
+            defaultValue="tarzan@test.com"
             ref={emailRef}
           />
           <br />
