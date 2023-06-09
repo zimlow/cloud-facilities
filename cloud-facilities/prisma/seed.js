@@ -30,7 +30,7 @@ async function main() {
         region: "OCEANIA",
         destination_highlights: ["NZONE Skydive", "Awesome Scenery", "Food Experience"],
         destination_image: [
-          "https://lh3.googleusercontent.com/p/AF1QipOinbjUU1i0NIJDSNay7z9xrJ__0vlAKAwH3dYj=s680-w680-h510",
+          "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_2916,h_1944,f_auto/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/eltdn5sjc3mnkq2sg3z7/BookNZONESkydive,QueenstownOnline-KlookSingapore.jpg",
           "https://www.newzealand.com/assets/Campaigns/If-You-Seek/Milford_Sound-Fiordland-MH1__aWxvdmVrZWxseQo_CropResizeWzEyMDAsNjMwLDc1LCJqcGciXQ.jpg",
           "https://res.cloudinary.com/simpleview/image/upload/v1614737437/clients/queenstownnz/Dining_Queenstown_Bay_Brand_Imagery_2__df227a58-ce49-464a-8b60-abd30e6d9e40.jpg",
         ],
