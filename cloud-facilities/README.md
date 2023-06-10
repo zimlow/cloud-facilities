@@ -50,7 +50,24 @@ React.email provides a collection of high-quality, unstyled components for creat
 
 # General Approach
 
-The design of our app was largely controlled by the prototype handed over to us by a design team and as such, we endeavoured to stick as close to the design as we could. Early in development, we prioritized setting up each of the app’s pages as per design and worked on styling the pages, since the app’s design was the first resource made available to us.
+<ol>The features achieved in this app includes:
+
+        For all users
+
+    <li> Users can view all trips available
+    <li> Users can view details of particular trip
+    <li> User can book trip as guest (app should validate inputs) and receive (mock)email confirmation
+    <li> User can review booking using Booking Reference and Last Name
+    <li> User can sign up and log-in
+    <li> A booking should adjust trip availability slots in trip details
+
+        For registered users
+
+    <li> Viewing of profile (contacts and bookings), protected against guests
+    <li> User information auto-populates for bookings
+    <li> Cancelling of bookings(unable to cancel other users bookings)
+
+</ol>
 
 <br/>
 
