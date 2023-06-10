@@ -46,7 +46,7 @@ React.email provides a collection of high-quality, unstyled components for creat
 
 # Model
 
-![ERD](cloud-facilites/public/cloudfac-ERD.png)
+![ERD](/public/cloudfac-ERD.png)
 
 # General Approach
 
