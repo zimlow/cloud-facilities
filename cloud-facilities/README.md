@@ -58,6 +58,7 @@ For all users:
     <li> Users can view all trips available
     <li> Users can view details of particular trip
     <li> User can book trip as guest (app should validate inputs) and receive (mock)email confirmation
+    <li> A user cannot create duplicate bookings 
     <li> User can review booking using Booking Reference and Last Name
     <li> User can sign up and log-in
     <li> A booking/cancellation should adjust trip availability slots in trip details
