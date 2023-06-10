@@ -68,7 +68,7 @@ For registered users:
 <ol>
     <li> Viewing of profile (contacts and bookings), protected against guests
     <li> User information auto-populates for bookings
-    <li> Cancelling of bookings(unable to cancel other users bookings)
+    <li> Cancelling of bookings (unable to cancel other users bookings)
 </ol>
 
 # To use
@@ -88,7 +88,7 @@ Create .env file, in it you'll require
 </ul>
 
 To migrate model into supabase<br>
-`npx prisma migrate dev`
+`npx prisma migrate dev`<br>
 You will be prompted to give it a name. This command will also automatically seed the data in the file 'seed.js'
 
 # Created by
