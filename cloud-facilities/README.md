@@ -14,7 +14,7 @@ This app was built using Next.js App router, a Javascript framework built on Rea
 
 ### <a href="https://tailwindcss.com/" target="_blank" >Tailwind CSS</a>
 
-Tailwind CSS was utilized for ease of customization and use.
+Tailwind CSS was utilized for ease of customization and use. Components from [TailwindUI's](https://tailwindui.com/) component library were also used for quick implementation
 
 ### <a href="https://www.prisma.io/" target="_blank" >Prisma ORM</a>
 
