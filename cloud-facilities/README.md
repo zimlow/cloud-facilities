@@ -92,6 +92,12 @@ To migrate model into supabase<br>
 `npx prisma migrate dev`<br>
 You will be prompted to give it a name. This command will also automatically seed the data in the file 'seed.js'
 
-# Created by
+# Possible future implementations
 
-[Low Zi Ming](https://github.com/zimlow)
+The idea behind this app is to bring together people for different adventure travel activities such as Diving and Snowboarding, as such, trips will expand to these different types as well. The database model is equipped to handle such additions
+
+Implementation of Mock Payment System using Stripe
+
+# Thanks for reading
+
+This app is created by [Low Zi Ming](https://github.com/zimlow)
