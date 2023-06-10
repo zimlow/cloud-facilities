@@ -60,13 +60,14 @@ For all users:
     <li> User can book trip as guest (app should validate inputs) and receive (mock)email confirmation
     <li> User can review booking using Booking Reference and Last Name
     <li> User can sign up and log-in
-    <li> A booking should adjust trip availability slots in trip details
+    <li> A booking/cancellation should adjust trip availability slots in trip details
 </ol>
 
 For registered users:
 
 <ol>
     <li> Viewing of profile (contacts and bookings), protected against guests
+    <li> Viewing of booking, from profile, does not require user to enter Booking Reference and Last Name
     <li> User information auto-populates for bookings
     <li> Cancelling of bookings (unable to cancel other users bookings)
 </ol>
