@@ -99,6 +99,8 @@ The idea behind this app is to bring together people for different adventure tra
 
 Implementation of Mock Payment System using Stripe
 
+As registration of user was via Postman in this prototype, it has to be implemented in the future
+
 # Thanks for reading
 
 This app is created by [Low Zi Ming](https://github.com/zimlow)
