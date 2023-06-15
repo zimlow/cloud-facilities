@@ -8,7 +8,7 @@ This project is also highly experimental, using new (to me) technologies such as
 
 ## Main Application
 
-### <a href="https://nextjs.org/" target="_blank" >React.js with Javascript</a>
+### <a href="https://nextjs.org/" target="_blank" >Next.js with Javascript</a>
 
 This app was built using Next.js App router, a Javascript framework built on React, to explore mainly its server-side rendering and how it would integrate both front and back-end work.
 
