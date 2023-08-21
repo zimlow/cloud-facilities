@@ -103,8 +103,7 @@ As registration of user was via Postman in this prototype, it has to be implemen
 
 # Snapshots
 
-<img src="../cloud-facilities/public/Project 4 - Fullstack.png" width="200" height="200">
-
-![aboutus](../cloud-facilities/public/proj4 aboutUs.png)
-![booking](../cloud-facilities/public/proj4 booking.png)
-![trips](../cloud-facilities/public/proj4 destinations.png)
+<img src="../cloud-facilities/public/Project 4 - Fullstack.png" width="300" height="200">
+<img src="../cloud-facilities/public/proj4 aboutUs.png" width="300" height="200"><br>
+<img src="../cloud-facilities/public/proj4 booking.png" width="300" height="200">
+<img src="../cloud-facilities/public/proj4 destinations.png" width="300" height="200">
