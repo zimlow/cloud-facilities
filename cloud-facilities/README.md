@@ -77,7 +77,7 @@ For registered users:
 
 Install dependencies<br> `npm i`
 
-Create .env file, in it you'll require
+Create `.env` file, in it you'll require
 
 <ul>
     <li>DIRECT_URL - for Postgres database
