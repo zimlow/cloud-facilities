@@ -103,7 +103,8 @@ As registration of user was via Postman in this prototype, it has to be implemen
 
 # Snapshots
 
-![landingPage](../cloud-facilities/public/Project 4 - Fullstack.png)
+<img src="../cloud-facilities/public/Project 4 - Fullstack.png" width="200" height="200">
+
 ![aboutus](../cloud-facilities/public/proj4 aboutUs.png)
 ![booking](../cloud-facilities/public/proj4 booking.png)
 ![trips](../cloud-facilities/public/proj4 destinations.png)
