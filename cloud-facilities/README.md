@@ -101,6 +101,9 @@ Implementation of Mock Payment System using Stripe
 
 As registration of user was via Postman in this prototype, it has to be implemented in the future
 
-# Thanks for reading
+# Snapshots
 
-This app is created by [Low Zi Ming](https://github.com/zimlow)
+![landingPage](../cloud-facilities/public/Project 4 - Fullstack.png)
+![aboutus](../cloud-facilities/public/proj4 aboutUs.png)
+![booking](../cloud-facilities/public/proj4 booking.png)
+![trips](../cloud-facilities/public/proj4 destinations.png)
